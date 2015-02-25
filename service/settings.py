@@ -1,5 +1,5 @@
 """
-Django settings for yelo project.
+Django settings for service project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -48,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'yelo.urls'
+ROOT_URLCONF = 'service.urls'
 
-WSGI_APPLICATION = 'yelo.wsgi.application'
+WSGI_APPLICATION = 'service.wsgi.application'
 
 
 # Database
