@@ -1,0 +1,4 @@
+develop-eggs:
+  - .
+eggs:
+  django: ==1.7.4
