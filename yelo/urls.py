@@ -4,6 +4,8 @@ from yelo import views
 
 router = routers.DefaultRouter()
 router.register(r'elos', views.EloViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = patterns(
     '',

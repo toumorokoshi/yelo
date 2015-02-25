@@ -1,9 +1,14 @@
+from django.contrib.auth.models import User, Group
 from django.forms.models import model_to_dict
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework import viewsets
 from yelo.models import Elo
-from yelo.serializers import EloSerializer
+from yelo.serializers import (
+    EloSerializer,
+    GroupSerializer,
+    UserSerializer
+)
 
 # Create your views here.
 
@@ -25,3 +30,19 @@ class EloViewSet(viewsets.ModelViewSet):
 
     queryset = Elo.objects.all()
     serializer_class = EloSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer

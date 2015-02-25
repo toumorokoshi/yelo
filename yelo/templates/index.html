@@ -1,7 +1,9 @@
+{% load staticfiles %}
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="yeloApp">
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="{% static 'yelo/js/controllers.js' %}"></script>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/base-min.css">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <link rel="stylesheet" href="http://purecss.io/combo/1.18.13?/css/layouts/side-menu.css">
@@ -15,7 +17,7 @@
     <title>{{title}}</title>
   </head>
   {% comment %} we use verbatim to work with angular {% endcomment %}
-  <body>
+  <body ng-controller="IndexCtrl">
     <div id="layout">
       <!-- Menu toggle -->
       <a href="#menu" id="menuLink" class="menu-link">
@@ -34,9 +36,15 @@
       <div id="main">
         <div class="header">
           <h1>{{title}}</h1>
+          {% verbatim %}
           <h2>Elo Ratings System</h2>
+          <h3>Rankings:</h3>
+          <ul>
+            <li ng-repeat="player in players">
+              {{ player.elo }}: {{ player.player.username }}
+            </li>
+          </ul>
         </div>
-        {% verbatim %}
         <div class="content">
         </div>
         {% endverbatim %}
