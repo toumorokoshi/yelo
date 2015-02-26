@@ -1,6 +1,8 @@
+import json
 from django.contrib.auth.models import User, Group
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from yelo.lib.elo_utils import play_match
 from yelo.lib.http import api_error
@@ -20,13 +22,19 @@ def index(request):
     })
 
 
+@csrf_exempt
 def record_match(request):
     if request.method != 'POST':
         return api_error('record_match must be called as a POST')
-    winner = User.objects.get(username=request.POST['winner'])
-    loser = User.objects.get(username=request.POST['loser'])
+
+    form = json.loads(request.body)
+
+    winner = User.objects.get(username=form['winner'])
     winner_elo = winner.elo.elo
+
+    loser = User.objects.get(username=form['loser'])
     loser_elo = loser.elo.elo
+
     new_winner_elo, new_loser_elo = play_match(winner_elo, loser_elo)
 
     match = Match(
@@ -38,9 +46,16 @@ def record_match(request):
         loser_after_elo=new_loser_elo
     )
     match.save()
+
+    winner.elo.elo = new_winner_elo
+    winner.elo.save()
+
+    loser.elo.elo = new_loser_elo
+    loser.elo.save()
+
     return JsonResponse({
         'success': True
-    }, status_code=400)
+    })
 
 
 class EloViewSet(viewsets.ModelViewSet):

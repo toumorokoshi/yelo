@@ -16,7 +16,7 @@ class Match(models.Model):
 
 class Elo(models.Model):
     elo = models.IntegerField(default=800)
-    player = models.ForeignKey(User)
+    player = models.OneToOneField(User)
 
     def __str__(self):
         return "{0} ({1})".format(self.player, self.elo)
