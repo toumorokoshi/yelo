@@ -4,7 +4,7 @@ yeloApp.controller('IndexCtrl', function($scope, $http) {
     $scope.title = 'yelo';
 
     $scope.loadElos = function () {
-        $http.get('/api/elos').success(function(data) {
+        $http.get('/api/elos?ordering=-elo').success(function(data) {
             $scope.players = data.results;
         });
     };

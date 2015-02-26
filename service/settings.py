@@ -51,7 +51,10 @@ MIDDLEWARE_CLASSES = (
 )
 
 REST_FRAMEWORK = {
-    'PAGINATE_BY': 10
+    'PAGINATE_BY': 10,
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.OrderingFilter',
+    )
 }
 
 ROOT_URLCONF = 'service.urls'

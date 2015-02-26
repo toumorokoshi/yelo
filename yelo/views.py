@@ -62,6 +62,7 @@ class EloViewSet(viewsets.ModelViewSet):
 
     queryset = Elo.objects.all()
     serializer_class = EloSerializer
+    ordering = ('-elo',)
 
 
 class UserViewSet(viewsets.ModelViewSet):
