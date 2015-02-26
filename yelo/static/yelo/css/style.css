@@ -1,7 +1,27 @@
+.pure-menu-heading {
+    background: #1f8dd6;
+    color: #fff;
+}
+
 .ranking-chart {
     text-align: center;
 }
 
 .ranking-chart * {
     margin: 0 auto;
+}
+
+.right-tray.collapsed {
+    position: absolute;
+    right: -100%;
+}
+
+.right-tray {
+    Background-color: black;
+    color: white;
+    height: 100vh;
+    transition: 0.15s;
+    position: absolute;
+    right: 0;
+    top: 0;
 }

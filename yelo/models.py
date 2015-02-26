@@ -11,7 +11,7 @@ class Match(models.Model):
     loser = models.ForeignKey(User, related_name='loser')
     loser_before_elo = models.IntegerField()
     loser_after_elo = models.IntegerField()
-    match_date = models.DateTimeField('match date')
+    match_date = models.DateTimeField('match date', auto_now_add=True)
 
 
 class Elo(models.Model):

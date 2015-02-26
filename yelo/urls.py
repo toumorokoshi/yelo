@@ -9,6 +9,7 @@ router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = patterns(
     '',
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index),
+    url(r'^record_match$', views.record_match),
     url(r'^api/', include(router.urls))
 )

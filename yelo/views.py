@@ -1,9 +1,10 @@
 from django.contrib.auth.models import User, Group
-from django.forms.models import model_to_dict
-from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import render
 from rest_framework import viewsets
-from yelo.models import Elo
+from yelo.lib.elo_utils import play_match
+from yelo.lib.http import api_error
+from yelo.models import Elo, Match
 from yelo.serializers import (
     EloSerializer,
     GroupSerializer,
@@ -19,11 +20,27 @@ def index(request):
     })
 
 
-def ratings(request):
-    elo_ratings = Elo.objects.order_by('elo')
+def record_match(request):
+    if request.method != 'POST':
+        return api_error('record_match must be called as a POST')
+    winner = User.objects.get(username=request.POST['winner'])
+    loser = User.objects.get(username=request.POST['loser'])
+    winner_elo = winner.elo.elo
+    loser_elo = loser.elo.elo
+    new_winner_elo, new_loser_elo = play_match(winner_elo, loser_elo)
+
+    match = Match(
+        winner=winner,
+        winner_before_elo=winner_elo,
+        winner_after_elo=new_winner_elo,
+        loser=loser,
+        loser_before_elo=loser_elo,
+        loser_after_elo=new_loser_elo
+    )
+    match.save()
     return JsonResponse({
-        'ratings': [model_to_dict(e, fields=['elo', 'player']) for e in elo_ratings]
-    })
+        'success': True
+    }, status_code=400)
 
 
 class EloViewSet(viewsets.ModelViewSet):
