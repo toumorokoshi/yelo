@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/base-min.css">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <link rel="stylesheet" href="http://purecss.io/combo/1.18.13?/css/layouts/side-menu.css">
+    <link rel="stylesheet" href="{% static 'yelo/css/style.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
@@ -38,17 +39,28 @@
           <h1>{{title}}</h1>
           {% verbatim %}
           <h2>Elo Ratings System</h2>
-          <h3>Rankings:</h3>
-          <ul>
-            <li ng-repeat="player in players">
-              {{ player.elo }}: {{ player.player.username }}
-            </li>
-          </ul>
         </div>
         <div class="content">
+          <div class="ranking-chart">
+            <h3>Rankings:</h3>
+            <table class="pure-table">
+              <thead>
+                <tr>
+                  <th>rank</th><th>rating</th><th>name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="player in players">
+                  <td>{{$index + 1}}</td>
+                  <td>{{player.elo}}</td>
+                  <td>{{player.player.username}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        {% endverbatim %}
       </div>
+      {% endverbatim %}
     </div>
   </body>
 </html>

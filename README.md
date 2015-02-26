@@ -23,3 +23,7 @@ finally, create a superuser:
 And you're data is set up!
 
 ## running
+
+    ./bin/develop
+
+for dev mode.
