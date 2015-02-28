@@ -27,7 +27,7 @@ def record_match(request):
     if request.method != 'POST':
         return api_error('record_match must be called as a POST')
 
-    form = json.loads(request.body)
+    form = json.loads(request.body.decode('utf-8'))
 
     winner = User.objects.get(username=form['winner'])
     winner_elo = winner.elo.elo

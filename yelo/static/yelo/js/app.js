@@ -15,6 +15,8 @@ yeloApp.controller('IndexCtrl', function($scope, $http) {
             'loser': $scope.recordMatchLoser
         }).success(function (data) {
             $scope.loadElos();
+            $scope.recordMatchWinner = null;
+            $scope.recordMatchLoser = null;
             $('#record-match').toggleClass('collapsed');
         }).error(function (data) {
             $scope.recordMatchError = data.detail;
