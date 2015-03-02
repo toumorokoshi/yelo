@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from yelo.models import Elo
+from yelo.models import Elo, Match
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,3 +29,21 @@ class EloSerializer(serializers.ModelSerializer):
         elo = Elo(player=user)
         elo.save()
         return elo
+
+
+class MatchSerializer(serializers.ModelSerializer):
+
+    loser = UserSerializer()
+    winner = UserSerializer()
+
+    class Meta:
+        model = Match
+        field = (
+            'winner',
+            'winner_before_elo',
+            'winner_after_elo',
+            'loser',
+            'loser_before_elo',
+            'loser_after_elo',
+            'match_date',
+        )

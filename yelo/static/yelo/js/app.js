@@ -4,9 +4,20 @@ yeloApp.controller('IndexCtrl', function($scope, $http) {
     $scope.title = 'yelo';
 
     $scope.loadElos = function () {
-        $http.get('/api/elos?ordering=-elo').success(function(data) {
+        $http.get('/api/elos').success(function(data) {
             $scope.players = data.results;
         });
+    };
+
+    $scope.loadMatches = function () {
+        $http.get('/api/matches').success(function(data) {
+            $scope.matches = data.results;
+        });
+    };
+
+    $scope.formatDate = function (dt) {
+        return dt.getMonth() + '/' + dt.getDate() + '/' + dt.getFullYear() +
+            getHours() + ':' + getMinutes();
     };
 
     $scope.submitMatch = function () {
@@ -14,9 +25,10 @@ yeloApp.controller('IndexCtrl', function($scope, $http) {
             'winner': $scope.recordMatchWinner,
             'loser': $scope.recordMatchLoser
         }).success(function (data) {
-            $scope.loadElos();
             $scope.recordMatchWinner = null;
             $scope.recordMatchLoser = null;
+            $scope.loadElos();
+            $scope.loadMatches();
             $('#record-match').toggleClass('collapsed');
         }).error(function (data) {
             $scope.recordMatchError = data.detail;
@@ -24,4 +36,5 @@ yeloApp.controller('IndexCtrl', function($scope, $http) {
     };
 
     $scope.loadElos();
+    $scope.loadMatches();
 });

@@ -41,9 +41,9 @@
           <h1>{{title}}</h1>
           <h2>Elo Ratings System</h2>
         </div>
-        <div class="content">
-          <div class="ranking-chart">
-            <h3>Rankings:</h3>
+        <div class="content pure-g">
+          <div class="home-chart pure-u-1-2">
+            <h3>Rankings</h3>
             <table class="pure-table">
               <thead>
                 <tr>
@@ -55,6 +55,23 @@
                   <td>{{$index + 1}}</td>
                   <td>{{player.elo}}</td>
                   <td>{{player.player.username}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="home-chart pure-u-1-2">
+            <h3>Matches</h3>
+            <table class="pure-table">
+              <thead>
+                <tr>
+                  <th>date</th><th>winner</th><th>loser</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="match in matches">
+                  <td>{{match.match_date | date:'medium'}}</td>
+                  <td>{{match.winner.username}} ({{match.winner_before_elo}} -> {{match.winner_after_elo}})</td>
+                  <td>{{match.loser.username}} ({{match.loser_before_elo}} -> {{match.loser_after_elo}})</td>
                 </tr>
               </tbody>
             </table>

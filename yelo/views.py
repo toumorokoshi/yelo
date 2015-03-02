@@ -9,6 +9,7 @@ from yelo.lib.http import api_error
 from yelo.models import Elo, Match
 from yelo.serializers import (
     EloSerializer,
+    MatchSerializer,
     GroupSerializer,
     UserSerializer
 )
@@ -79,3 +80,10 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class MatchViewSet(viewsets.ModelViewSet):
+
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+    ordering = ('-match_date',)

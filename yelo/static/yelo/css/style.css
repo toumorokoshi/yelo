@@ -41,7 +41,6 @@ The content `<div>` is where all your content goes.
 .content {
     margin: 0 auto;
     padding: 0 2em;
-    max-width: 800px;
     margin-bottom: 50px;
     line-height: 1.6em;
 }
@@ -253,12 +252,17 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     color: #fff;
 }
 
-.ranking-chart {
-    text-align: center;
+.home-chart {
+    padding-top: 2em;
+    min-width: 25em;
 }
 
-.ranking-chart * {
+.home-chart * {
     margin: 0 auto;
+}
+
+.home-chart h3 {
+    text-align: center;
 }
 
 .right-tray.collapsed {
@@ -269,7 +273,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 .right-tray {
     Background-color: black;
     height: 100vh;
-    transition: 0.15s;
+    transition: 0.3s;
     position: absolute;
     right: 0;
     top: 0;
