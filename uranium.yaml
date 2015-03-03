@@ -3,8 +3,10 @@ phases:
 eggs:
   django: ==1.7.4
   djangorestframework: ==3.0.5
+  # gunicorn is used to serve the wsgi server.
+  gunicorn: null
   jedi: null
 parts:
   develop:
     _plugin: uranium.plugin.shell
-    script: "./bin/python manage.py runserver"
+    script: "./bin/python manage.py runserver 0.0.0.0:9001"
