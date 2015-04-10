@@ -32,7 +32,8 @@
           <a class="pure-menu-heading" href="#">{{title}}</a>
           <ul class="pure-menu-list">
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
-            <li class="pure-menu-item"><a href="#" onclick="$('#record-match').toggleClass('collapsed')" class="pure-menu-link">Record Match</a></li>
+            <li class="pure-menu-item"><a href="#" onclick="$('#record-match').toggleClass('collapsed'),$('#add-player').addClass('collapsed')" class="pure-menu-link">Record Match</a></li>
+            <li class="pure-menu-item"><a href="#" onclick="$('#add-player').toggleClass('collapsed'),$('#record-match').addClass('collapsed')" class="pure-menu-link">Add Player</a></li>
           </ul>
         </div>
       </div>
@@ -89,6 +90,21 @@
               <input type="text" ng-model="recordMatchWinner" placeholder="winner">
               <input type="text" ng-model="recordMatchLoser" placeholder="loser">
               <button type="submit" class="pure-button pure-button-primary">record</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="right-tray collapsed pure-menu" id="add-player">
+          <div class="pure-menu-heading">
+            Add Player
+          </div>
+          <span ng-show="addPlayerError">
+            {{ addPlayerError }}
+          </span>
+          <form class="pure-form tray-body" ng-submit="addPlayer()">
+            <fieldset>
+              <input type="text" ng-model="addPlayerName" placeholder="name">
+              <button type="submit" class="pure-button pure-button-primary">submit</button>
             </fieldset>
           </form>
         </div>
