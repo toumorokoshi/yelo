@@ -35,6 +35,18 @@ yeloApp.controller('IndexCtrl', function($scope, $http) {
         });
     };
 
+    $scope.addPlayer = function () {
+        $http.post('/add_player', {
+            'name': $scope.addPlayerName
+        }).success(function (data) {
+            $scope.addPlayerName = null;
+            $scope.loadElos();
+            $('#add-player').toggleClass('collapsed');
+        }).error(function (data) {
+            $scope.addPlayerError = data.detail;
+        });
+    };
+
     $scope.loadElos();
     $scope.loadMatches();
 });

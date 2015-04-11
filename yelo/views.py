@@ -58,6 +58,21 @@ def record_match(request):
         'success': True
     })
 
+@csrf_exempt
+def add_player(request):
+    if request.method != 'POST':
+        return api_error('add_player must be called as a POST')
+
+    form = json.loads(request.body.decode('utf-8'))
+
+    elo = Elo(
+        player=User.objects.create_user(form['name'])
+    )
+    elo.save()
+
+    return JsonResponse({
+        'success': True
+    })
 
 class EloViewSet(viewsets.ModelViewSet):
 
