@@ -37,6 +37,9 @@ def record_match(request):
 
     form = json.loads(request.body.decode('utf-8'))
 
+    if form['winner'] == form['loser']:
+        return api_error(form['winner'] + ' cannot be both the winner and the loser of a match.')
+
     winner = User.objects.get(username=form['winner'])
     winner_elo = winner.elo.elo
 
