@@ -13,6 +13,7 @@ from yelo.serializers import (
     GroupSerializer,
     UserSerializer
 )
+import collections
 
 # Create your views here.
 
@@ -22,6 +23,12 @@ def index(request):
         'title': 'yelo'
     })
 
+def profile(request, player):
+    return render(request, "profile.html", {
+        'title': 'yelo',
+        'player': player,
+        'rating_history': get_matches_by_player(player)
+    })
 
 @csrf_exempt
 def record_match(request):
@@ -73,6 +80,34 @@ def add_player(request):
     return JsonResponse({
         'success': True
     })
+
+@csrf_exempt
+def get_matches_by_player(player):
+
+    user = User.objects.get(username=player)
+    wins = Match.objects.filter(winner=user)
+    losses = Match.objects.filter(loser=user)
+
+    rating_history = dict()
+    for win in wins:
+        rating_history[win.match_date] = win.winner_after_elo
+    for loss in losses:
+        rating_history[loss.match_date] = loss.loser_after_elo
+
+    sorted_rating_history = collections.OrderedDict()
+    for k in sorted(rating_history.keys()):
+        sorted_rating_history[k] = rating_history[k]
+
+    #javascript wants a zero based month, what the hell?
+    resp = [{'x': 'new Date(' + ','.join(str(a) for a in [date.year, date.month - 1, date.day, date.hour, date.minute, date.second]) + ')', 'y': elo} for date, elo in sorted_rating_history.iteritems()]
+    resp = JsonResponse(
+        resp,
+        safe=False
+    )
+    #Unfortunate formatting adjustments to give canvasjs what it wants
+    resp = str(resp).replace("\"",'')
+    resp = resp.replace("Content-Type: application/json","")
+    return resp
 
 class EloViewSet(viewsets.ModelViewSet):
 

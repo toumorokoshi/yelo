@@ -13,7 +13,6 @@ class Match(models.Model):
     loser_after_elo = models.IntegerField()
     match_date = models.DateTimeField('match date', auto_now_add=True)
 
-
 class Elo(models.Model):
     elo = models.IntegerField(default=800)
     player = models.OneToOneField(User)

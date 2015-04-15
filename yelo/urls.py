@@ -13,5 +13,6 @@ urlpatterns = patterns(
     url(r'^$', views.index),
     url(r'^record_match$', views.record_match),
     url(r'^add_player$', views.add_player),
-    url(r'^api/', include(router.urls))
+    url(r'^api/', include(router.urls)),
+	url(r'^(?P<player>.+)/$', views.profile)
 )
