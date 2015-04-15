@@ -6,6 +6,7 @@ eggs:
   # gunicorn is used to serve the wsgi server.
   gunicorn: null
   jedi: null
+  pep8: null
 parts:
   develop:
     _plugin: uranium.plugin.shell
