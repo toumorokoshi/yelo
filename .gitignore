@@ -58,3 +58,4 @@ target/
 bin
 include
 db.sqlite3
+.pydistutils.cfg
